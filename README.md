@@ -10,6 +10,8 @@
 
 
 ## Useful links:
+Modelling:
+https://towardsdatascience.com/infectious-disease-modelling-beyond-the-basic-sir-model-216369c584c4
 
 Vaccine:
 * https://www.folkhalsomyndigheten.se/contentassets/f8703f0a29cc408fb788b60f87289e5b/nationell-plan-vaccination-covid-19.pdf
