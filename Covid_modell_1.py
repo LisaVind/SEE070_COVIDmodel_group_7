@@ -6,8 +6,9 @@ Created on Wed Dec 16 16:57:20 2020
 @author: LisaVind
 """
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
-beta = 0.2
+beta = 1.1
 
 gamma = 0.1
 
@@ -18,10 +19,10 @@ gamma = 0.1
 R0 = beta/gamma
 
 # N antalet i befolkningen, Sverige ca 10 miljoner
-N = 10000000
+N = 10 * 10**(6)
 
 #I  – Infekterade just nu
-I = 6000
+I = 10000
 
 # b = effekt av policy och beteendeförändringar 0 < b < 1 
 b = 0.25
@@ -43,7 +44,7 @@ lista_S = []
 lista_I = []
 
 
-for t in range(0,200):
+for t in range(0,60):
     R += I * gamma
     lista_R.append(R)
     
@@ -63,7 +64,14 @@ for t in range(0,200):
 # Rt= R0* S(t)/Ntot* (1 –b) 
 
 
-plt.plot(lista_R)
-plt.plot(lista_I)
+plt.plot(lista_S, 'blue')
+plt.plot(lista_I, 'red')
+plt.plot(lista_R, 'g')
+
+pop_a = mpatches.Patch(color='blue', label='Mottagliga för infektion')
+pop_b = mpatches.Patch(color='red', label='Infekterade')
+pop_c =  mpatches.Patch(color='green', label='Tillfrisknade')
+
+plt.legend(handles=[pop_a,pop_b,pop_c])
 
 
