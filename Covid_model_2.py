@@ -14,9 +14,17 @@ gamma = 0.1
 alpha = 0.05
 #Alpha = risk att dö för infekterade
 
-
 rho = 1/9
 #1/antal dagar det tar för en person att avlida
+
+def getAlpha():
+    HospitalMaxCapacity = 150000
+    extraMortality = 0.00000001
+    if I < HospitalMaxCapacity:
+        return alpha
+    else:
+        return alpha + (I - HospitalMaxCapacity)*extraMortality
+
 
 #R0 = initiala värdet på smittspridningen.
 #Beta = antal som smittas per infekterad och per tid (beror på virusets egenskaper samt hur vi beter oss)
@@ -28,7 +36,7 @@ R0 = beta/gamma
 N = 10 * 10**(6)
 
 #I  – Infekterade just nu
-I = 10000
+I = 10
 
 # b = effekt av policy och beteendeförändringar 0 < b < 1 
 b = 0.25
@@ -53,20 +61,22 @@ lista_D = []
 
 
 for t in range(0,60):
-    R += (1 - alpha) * I * gamma
+    R += (1 - getAlpha()) * I * gamma
     lista_R.append(R)    
     
     S += (-(beta*I*S))/N 
     lista_S.append(S)
     
-    I += (beta * I * S)/N - (1 - alpha)*(I * gamma) - alpha * rho * I
+    I += (beta * I * S)/N - (1 - getAlpha())*(I * gamma) - getAlpha() * rho * I
     lista_I.append(I)
     
     Rt += R0 * (S/N) * (1 - b) 
     lista_Rt.append(Rt)
     
-    D += alpha * rho * I
+    D += getAlpha() * rho * I
     lista_D.append(D)
+    print(I)
+    print(getAlpha())
 
 
 #R – tillfrisknade, eller möjligen också döda personer, vi måste utgå från data som finns? Sedan lägga till en faktor I * gamma
